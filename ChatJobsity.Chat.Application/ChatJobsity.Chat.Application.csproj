@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatJobsity.Chat.Domain\ChatJobsity.Chat.Domain.csproj" />
+    <ProjectReference Include="..\ChatJobsity.Chat.Infraestructure\ChatJobsity.Chat.Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>

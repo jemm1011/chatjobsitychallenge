@@ -1,0 +1,152 @@
+﻿@page
+@using ChatJobsity.UI.Models
+@using Microsoft.AspNetCore.Components.Web
+@model ChatJobsity.UI.Pages.Chat.ChatsModel
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var currentUserId = new Guid(UserManager.GetUserId(User));
+}
+
+@section scripts{
+
+    <script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+
+        var hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build()
+
+        hubConnection.start()
+            .then(function () {
+                console.log('Connected to chatHub')
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+
+        hubConnection.on("Receive", function (message, isbot) {
+            console.log(message)
+            refresh(message, isbot)
+        })
+
+        function selectRoom() {
+           
+            document.getElementById('simulatedButton').click()
+            //$.post('Chat/Chats?handler=Select');
+        }
+
+        function refresh(message, isbot) {
+            document.getElementById('isBot').value = isbot
+            document.getElementById('message').value = message
+            document.getElementById('refreshSimulator').submit()
+        }
+
+    </script>
+}
+
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    @if (Model.Rooms != null)
+                    {
+                        foreach (var room in Model.Rooms)
+                        {
+                            <li class="clearfix">
+                                <form asp-page-handler="Select" method="post">
+                                    <div onclick="selectRoom()">
+                                        <img src="https://icon-library.com/images/personal-icon/personal-icon-3.jpg" alt="avatar">
+                                        <div class="about">
+                                            <div class="name">@room.GuestUserDisplayName</div>
+                                            <div class="status"> <i class="fa fa-circle offline"></i>@room.LastUpdatedDateTime.ToString("dddd, dd MMMM yyyy")</div>                                            
+                                        </div>
+                                    </div>
+                                    <input type="submit" id="simulatedButton" hidden/>
+                                    <input type="hidden" name="roomId" value="@room.Id" />
+                                </form>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="chat">
+                <div class="chat-header clearfix">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @if (Model.SelectedRoom != null)
+                            {
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">@Model.SelectedRoom.GuestUserDisplayName</h6>
+                                    <small>@Model.SelectedRoom.LastUpdatedDateTime.ToString("dddd, dd MMMM yyyy")</small>
+                                </div>
+                            
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (Model.SelectedRoom != null)
+                {
+                <div class="chat-history">
+                
+                    <ul class="m-b-0">                        
+                    @foreach (var message in Model.SelectedRoom.Messages)
+                    {
+                        if(message.SenderUserId == currentUserId)
+                        {
+                            <li class="clearfix">
+                                <div class="message other-message float-right">@message.Text</div>
+                            </li>
+                        }
+                        else if (message.SenderUserId != Guid.Empty)
+                        {
+                            <li class="clearfix">                               
+                                <div class="message my-message">@message.Text</div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="clearfix">
+                                 <div class="message-data text-right">
+                                    <h4><span class="badge badge-secondary">BOT</span></h4>
+                                </div>
+                                <div class="message other-message float-right">@message.Text</div>
+                            </li>
+                        }
+
+                    }                                                
+                    </ul>                   
+                
+                </div>
+                 <form asp-page-handler="Send" method="post">
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-send"></i></span>
+                            </div>
+                            
+                                <input type="text" class="form-control" id="TextMessage" name="TextMessage" value="@Model.TextMessage">
+                                <input type="hidden" name="roomId" value="@Model.SelectedRoom.Id" />
+                            
+                        </div>
+                    </div>
+                </form>
+                <form id="refreshSimulator" asp-page-handler="Refresh" method="post">
+                    <input type="hidden" name="roomId" value="@Model.SelectedRoom?.Id" />
+                    <input type="hidden" id="isBot" name="isBot" value="" />
+                    <input type="hidden" id="message" name="message" value="" />
+                </form >
+            }
+        </div>
+    </div>
+</div>
+</div>

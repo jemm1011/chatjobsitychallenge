@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.UI", "ChatJobsity.UI\ChatJobsity.UI.csproj", "{89658337-F1D2-4F06-BE65-837CE01B2CCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{126FEA8D-2F0B-4446-A5F6-832FFD90521A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Identity", "ChatJobsity.Identity\ChatJobsity.Identity.csproj", "{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chat", "Chat", "{98DE46B6-DD37-4549-AB92-34E7D89FC0F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Chat", "ChatJobsity.Chat\ChatJobsity.Chat.csproj", "{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Chat.Domain", "ChatJobsity.Chat.Domain\ChatJobsity.Chat.Domain.csproj", "{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Chat.Application", "ChatJobsity.Chat.Application\ChatJobsity.Chat.Application.csproj", "{01A97643-047D-4CAE-B0A3-04105F34F7CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Chat.Infraestructure", "ChatJobsity.Chat.Infraestructure\ChatJobsity.Chat.Infraestructure.csproj", "{D979F22B-842F-48E4-A2B1-119F4CD567B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bot", "Bot", "{71014204-0E3C-4F36-93E0-085060E202FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatJobsity.Bot", "ChatJobsity.Bot\ChatJobsity.Bot.csproj", "{20B3860E-62DD-474E-9AE8-5DEBEE975CB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{81AB0342-DF17-4F64-8F01-D54029C4C452}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatJobsity.Shared", "ChatJobsity.Shared\ChatJobsity.Shared.csproj", "{99442C67-2712-4C77-AAC1-E97B10D723DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatJobsity.Chat.Tests", "ChatJobsity.Chat.Tests\ChatJobsity.Chat.Tests.csproj", "{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89658337-F1D2-4F06-BE65-837CE01B2CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89658337-F1D2-4F06-BE65-837CE01B2CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89658337-F1D2-4F06-BE65-837CE01B2CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89658337-F1D2-4F06-BE65-837CE01B2CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A97643-047D-4CAE-B0A3-04105F34F7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A97643-047D-4CAE-B0A3-04105F34F7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A97643-047D-4CAE-B0A3-04105F34F7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A97643-047D-4CAE-B0A3-04105F34F7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D979F22B-842F-48E4-A2B1-119F4CD567B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D979F22B-842F-48E4-A2B1-119F4CD567B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D979F22B-842F-48E4-A2B1-119F4CD567B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D979F22B-842F-48E4-A2B1-119F4CD567B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20B3860E-62DD-474E-9AE8-5DEBEE975CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20B3860E-62DD-474E-9AE8-5DEBEE975CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20B3860E-62DD-474E-9AE8-5DEBEE975CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20B3860E-62DD-474E-9AE8-5DEBEE975CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99442C67-2712-4C77-AAC1-E97B10D723DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99442C67-2712-4C77-AAC1-E97B10D723DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99442C67-2712-4C77-AAC1-E97B10D723DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99442C67-2712-4C77-AAC1-E97B10D723DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36DD6ECB-2BF4-4AE4-9A73-B188CCCF2476} = {126FEA8D-2F0B-4446-A5F6-832FFD90521A}
+		{AA2AF09B-B2A1-4DCA-80A7-C7455AC34C4F} = {98DE46B6-DD37-4549-AB92-34E7D89FC0F4}
+		{D4A68CEB-B094-46C1-B4FF-CED7B43F38B6} = {98DE46B6-DD37-4549-AB92-34E7D89FC0F4}
+		{01A97643-047D-4CAE-B0A3-04105F34F7CA} = {98DE46B6-DD37-4549-AB92-34E7D89FC0F4}
+		{D979F22B-842F-48E4-A2B1-119F4CD567B6} = {98DE46B6-DD37-4549-AB92-34E7D89FC0F4}
+		{20B3860E-62DD-474E-9AE8-5DEBEE975CB3} = {71014204-0E3C-4F36-93E0-085060E202FE}
+		{99442C67-2712-4C77-AAC1-E97B10D723DD} = {81AB0342-DF17-4F64-8F01-D54029C4C452}
+		{CD2E5B26-4DA3-4775-B5D6-23E3E4D4235C} = {98DE46B6-DD37-4549-AB92-34E7D89FC0F4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {977C0E73-8ACB-483E-B22E-762B7435CC16}
+	EndGlobalSection
+EndGlobal
