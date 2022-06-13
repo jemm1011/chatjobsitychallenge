@@ -20,17 +20,9 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    </li>   
   </ol>
 </details>
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -39,7 +31,6 @@ Chat in real time, multiroom
 ASP.NET Core 5.0 - SignarR - RabbitMQ - MSSQLServer
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 ### Built With
@@ -52,6 +43,7 @@ ASP.NET Core 5.0 - SignarR - RabbitMQ - MSSQLServer
 * [Entity Framework](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-6.0)
 * [MSSQLServer](https://www.microsoft.com/es-es/sql-server/sql-server-downloads)
 * [Bootstrap](https://getbootstrap.com/)
+* [MSUnit](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
