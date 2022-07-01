@@ -48,7 +48,7 @@ namespace ChatJobsity.UI.Pages.Chat
 
         public async Task<IActionResult> OnPostSelect(Guid roomId)
         {
-            await LoadRoomData(roomId, false);
+            await LoadRoomData(roomId, true);
             return Page();
         }
 
@@ -72,7 +72,8 @@ namespace ChatJobsity.UI.Pages.Chat
                 var fetchFromServer = await LoadRoomData(roomId, false);
                 if (!fetchFromServer)
                 {
-                    SelectedRoom.Messages.Add(newMessage);
+                    Rooms.FirstOrDefault(x => x.Id == newMessage.RoomId).Messages.Add(newMessage);
+                    HttpContext.Session.SetString($"{ROOMS_KEY_PREFIX}-{_userManager.GetUserId(User)}", JsonConvert.SerializeObject(Rooms));
                 }
                 await NotifyAllParticipants(roomId);
             }            
@@ -101,6 +102,7 @@ namespace ChatJobsity.UI.Pages.Chat
                 {
                     Id = Guid.Empty,
                     SenderUserId = Guid.Empty,
+                    SenderUserName =  _userManager.GetUserName(User),
                     RoomId = roomId,
                     Text = message,
                     SentDateTime = DateTime.Now
@@ -121,9 +123,9 @@ namespace ChatJobsity.UI.Pages.Chat
             var currentUserId = new Guid(_userManager.GetUserId(User));
             foreach (var participant in participants)
             {
-                if (participant.User.Id != currentUserId)
+                if (participant.UserId != currentUserId)
                 {
-                    await _hubContext.Clients.User(participant.User.Id.ToString()).SendAsync("Receive", "New Message", false);
+                    await _hubContext.Clients.User(participant.UserId.ToString()).SendAsync("Receive", "New Message", false);
                 }
             }
         }
@@ -140,8 +142,16 @@ namespace ChatJobsity.UI.Pages.Chat
                     fetchFromServer = false;
                 }
             }
-            Rooms = Rooms != null ? Rooms : await _chatApi.GetOwnRooms(new Guid(_userManager.GetUserId(User)));
+            if(Rooms == null)
+            {
+                Rooms = await _chatApi.GetOwnRooms(new Guid(_userManager.GetUserId(User)));
+                HttpContext.Session.SetString($"{ROOMS_KEY_PREFIX}-{_userManager.GetUserId(User)}", JsonConvert.SerializeObject(Rooms));
+            }
             SelectedRoom = Rooms.FirstOrDefault(x => x.Id == roomId);
+            foreach (var message in SelectedRoom.Messages)
+            {
+                message.SenderUserName = (await _userManager.FindByIdAsync(message.SenderUserId.ToString())).UserName;
+            }
             return fetchFromServer;
         }
     }

@@ -26,11 +26,19 @@ namespace ChatJobsity.Chat.Controllers
             return mapped;
         }
 
-        [HttpPost("getorcreate")]
-        public async Task<RoomModel> GetOrCreateRoom(Guid fromUserId, Guid toUserId)
+
+        [HttpGet("available/{userId}")]
+        public async Task<List<RoomModel>> GetaAvailableRooms(Guid userId)
         {
-            var room = await _unitOfWork.Rooms.GetOrCreateRoom(fromUserId, toUserId);
-            room.Participants.Remove(room.Participants.FirstOrDefault(x => x.User.Id == fromUserId));
+            var rooms = await _unitOfWork.Rooms.GetAvailableRooms(userId);
+            var mapped = _mapper.Map<List<RoomModel>>(rooms);
+            return mapped;
+        }
+
+        [HttpPost("create")]
+        public async Task<RoomModel> CreateRoom(Guid userId, string roomName)
+        {
+            var room = await _unitOfWork.Rooms.CreateRoom(userId, roomName);
             return _mapper.Map<RoomModel>(room);            
         }
         

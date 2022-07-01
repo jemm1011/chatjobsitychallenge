@@ -45,7 +45,6 @@ namespace ChatJobsity.Chat
             #region DependencyInjection
 
             services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IParticipantRepository, ParticipantRepository>();

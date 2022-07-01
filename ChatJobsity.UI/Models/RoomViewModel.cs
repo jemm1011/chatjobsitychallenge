@@ -8,8 +8,7 @@ namespace ChatJobsity.UI.Models
     {
         public Guid Id { get; set; }
         public DateTime LastUpdatedDateTime { get; set; }
-        public string GuestUserDisplayName { get; set; }
-        public Guid GuestUserId { get; set; }
+        public string Name { get; set; }
         public virtual IList<MessageViewModel> Messages { get; set; }
             
     }

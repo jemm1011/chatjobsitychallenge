@@ -14,15 +14,13 @@ namespace ChatJobsity.Chat.Application.Services
         private readonly ApplicationDbContext dbContext;
 
         public IRoomRepository Rooms { get; private set; }
-        public IUserRepository Users { get; private set; }
         public IMessageRepository Messages { get; private set; }
         public IParticipantRepository Participants { get; private set; }
 
-        public UnitOfWork(ApplicationDbContext dbContext, IRoomRepository rooms, IUserRepository users, IMessageRepository messages, IParticipantRepository participantRepository)
+        public UnitOfWork(ApplicationDbContext dbContext, IRoomRepository rooms, IMessageRepository messages, IParticipantRepository participantRepository)
         {
             this.dbContext = dbContext;
             Rooms = rooms;
-            Users = users;
             Messages = messages;
             Participants = participantRepository;
         }

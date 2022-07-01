@@ -12,15 +12,12 @@ namespace ChatJobsity.Chat.Infraestructure
             : base(options)
         {
         }
-
-        public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomParticipant> Participants { get; set; }
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<RoomParticipant>().ToTable("RoomParticipants");
 
             modelBuilder.Entity<Room>(entity =>            {

@@ -31,9 +31,9 @@
             refresh(message, isbot)
         })
 
-        function selectRoom() {
+        function selectRoom(roomId) {
            
-            document.getElementById('simulatedButton').click()
+            document.getElementById('simulatedButton' + roomId).click()
             //$.post('Chat/Chats?handler=Select');
         }
 
@@ -62,17 +62,18 @@
                     {
                         foreach (var room in Model.Rooms)
                         {
+                            var divId = "simulatedButton" + room.Id;
                             <li class="clearfix">
                                 <form asp-page-handler="Select" method="post">
-                                    <div onclick="selectRoom()">
+                                    <div onclick="selectRoom(`@room.Id`)">
                                         <img src="https://icon-library.com/images/personal-icon/personal-icon-3.jpg" alt="avatar">
                                         <div class="about">
-                                            <div class="name">@room.GuestUserDisplayName</div>
+                                            <div class="name">@room.Name</div>
                                             <div class="status"> <i class="fa fa-circle offline"></i>@room.LastUpdatedDateTime.ToString("dddd, dd MMMM yyyy")</div>                                            
                                         </div>
-                                    </div>
-                                    <input type="submit" id="simulatedButton" hidden/>
-                                    <input type="hidden" name="roomId" value="@room.Id" />
+                                        <input type="submit" id="@divId" hidden/>
+                                        <input type="hidden" name="roomId" value="@room.Id" />
+                                    </div>                                    
                                 </form>
                             </li>
                         }
@@ -86,7 +87,7 @@
                             @if (Model.SelectedRoom != null)
                             {
                                 <div class="chat-about">
-                                    <h6 class="m-b-0">@Model.SelectedRoom.GuestUserDisplayName</h6>
+                                    <h6 class="m-b-0">@Model.SelectedRoom.Name</h6>
                                     <small>@Model.SelectedRoom.LastUpdatedDateTime.ToString("dddd, dd MMMM yyyy")</small>
                                 </div>
                             
@@ -109,7 +110,10 @@
                         }
                         else if (message.SenderUserId != Guid.Empty)
                         {
-                            <li class="clearfix">                               
+                            <li class="clearfix">       
+                                <div class="message-data text-left">
+                                    <h5><span class="badge badge-primary">@message.SenderUserName</span></h5>
+                                </div>
                                 <div class="message my-message">@message.Text</div>
                             </li>
                         }

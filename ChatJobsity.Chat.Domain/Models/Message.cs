@@ -10,8 +10,7 @@ namespace ChatJobsity.Chat.Domain.Models
     public class Message : BaseEntity
     {
         public string Text { get; set; }
-        [ForeignKey("SenderUserId")]
-        public virtual User SenderUser { get; set; }
+        public virtual Guid SenderUserId { get; set; }
         [ForeignKey("RoomId")]
         public virtual Room Room { get; set; }
         public DateTime SentDateTime { get; set; }

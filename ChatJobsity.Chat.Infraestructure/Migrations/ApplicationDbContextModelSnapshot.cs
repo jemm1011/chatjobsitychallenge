@@ -31,7 +31,7 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                     b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SenderUserId")
+                    b.Property<Guid>("SenderUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("SentDateTime")
@@ -43,8 +43,6 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
-
-                    b.HasIndex("SenderUserId");
 
                     b.ToTable("Messages");
                 });
@@ -58,8 +56,14 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("CreatorUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("LastUpdatedDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -75,33 +79,14 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                     b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("RoomParticipants");
-                });
-
-            modelBuilder.Entity("ChatJobsity.Chat.Domain.Models.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ChatJobsity.Chat.Domain.Models.Message", b =>
@@ -110,13 +95,7 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                         .WithMany("Messages")
                         .HasForeignKey("RoomId");
 
-                    b.HasOne("ChatJobsity.Chat.Domain.Models.User", "SenderUser")
-                        .WithMany()
-                        .HasForeignKey("SenderUserId");
-
                     b.Navigation("Room");
-
-                    b.Navigation("SenderUser");
                 });
 
             modelBuilder.Entity("ChatJobsity.Chat.Domain.Models.RoomParticipant", b =>
@@ -125,13 +104,7 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                         .WithMany("Participants")
                         .HasForeignKey("RoomId");
 
-                    b.HasOne("ChatJobsity.Chat.Domain.Models.User", "User")
-                        .WithMany("Rooms")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Room");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ChatJobsity.Chat.Domain.Models.Room", b =>
@@ -139,11 +112,6 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("Participants");
-                });
-
-            modelBuilder.Entity("ChatJobsity.Chat.Domain.Models.User", b =>
-                {
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

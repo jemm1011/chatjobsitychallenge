@@ -8,7 +8,7 @@ namespace ChatJobsity.Chat.Models
     public class RoomParticipantModel
     {
         public Guid Id { get; set; }
-        public UserModel User { get; set; }
+        public Guid UserId { get; set; }
         public RoomModel Room { get; set; }
     }
 }

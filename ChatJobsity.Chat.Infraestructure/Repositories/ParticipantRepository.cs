@@ -17,7 +17,7 @@ namespace ChatJobsity.Chat.Infraestructure.Repositories
 
         public async Task<List<RoomParticipant>> GetParticipantsByRoomId(Guid roomId)
         {
-            return await _context.Participants.Where(x => x.Room.Id == roomId).Include(x => x.User).ToListAsync();
+            return await _context.Participants.Where(x => x.Room.Id == roomId).ToListAsync();
         }
     }
 }

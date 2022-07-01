@@ -12,25 +12,14 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,7 +28,7 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SenderUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SenderUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false)
@@ -53,12 +42,6 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Messages_Users_SenderUserId",
-                        column: x => x.SenderUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +50,7 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,12 +61,6 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_RoomParticipants_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -92,19 +69,9 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_SenderUserId",
-                table: "Messages",
-                column: "SenderUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RoomParticipants_RoomId",
                 table: "RoomParticipants",
                 column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoomParticipants_UserId",
-                table: "RoomParticipants",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -117,9 +84,6 @@ namespace ChatJobsity.Chat.Infraestructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rooms");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

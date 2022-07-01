@@ -12,45 +12,16 @@ namespace ChatJobsity.Chat.Infraestructure.Repositories
     {
         public RoomRepository(ApplicationDbContext context) : base(context)
         {
+
         }
 
-        public async Task<Room> GetOrCreateRoom(Guid fromUserId, Guid toUserId)
-        {
-            var fromUserRooms = await _context.Participants
-                 .Include(x => x.Room)
-                 .Include(x => x.User)
-                .Where(x => x.User.Id == fromUserId).ToListAsync();
-            if (fromUserRooms == null)
-            {
-                return await CreateRoomAndParticipants(fromUserId, toUserId);
-            }
-            else
-            {
-                try
-                {
-                    var roomExists = (await _context.Participants
-                        .Include(x => x.Room)
-                        .Include(x => x.User)
-                        .Where(x => x.User.Id == toUserId).ToListAsync()).FirstOrDefault(x => fromUserRooms.Any(y => y.Room.Id == x.Room.Id));                
-                
-                    if (roomExists == null)
-                    {
-                        return await CreateRoomAndParticipants(fromUserId, toUserId);
-                    }
-                    return roomExists.Room;
-                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-
-        private async Task<Room> CreateRoomAndParticipants(Guid fromUserId, Guid toUserId)
+        public async Task<Room> CreateRoom(Guid userId, string roomName)
         {
             var room = new Room()
             {
                 Id = Guid.NewGuid(),
+                Name = roomName,
+                CreatorUserId = userId,
                 CreatedDateTime = DateTime.Now,
                 LastUpdatedDateTime = DateTime.Now
             };
@@ -61,14 +32,7 @@ namespace ChatJobsity.Chat.Infraestructure.Repositories
                     {
                         Id = Guid.NewGuid(),
                         Room = room,
-                        User =  _context.Users.Find(fromUserId)
-                    }
-                },
-                { new RoomParticipant()
-                    {
-                        Id = Guid.NewGuid(),
-                        Room = room,
-                        User =  _context.Users.Find(toUserId)
+                        UserId = userId
                     }
                 }
             };
@@ -80,14 +44,21 @@ namespace ChatJobsity.Chat.Infraestructure.Repositories
         public async Task<List<Room>> GetOwnRooms(Guid userId)
         {
             return await _context.Rooms
-                .Include(x => x.Participants.Where(x => x.User.Id != userId))
-                .ThenInclude(x => x.User)
+                .Include(x => x.Participants.Where(x => x.UserId != userId))
                 .Include(x => x.Messages.OrderBy(x => x.SentDateTime).Take(50))
-                .ThenInclude(x => x.SenderUser)
-                .Where(x => x.Participants.Any(y => y.User.Id == userId))
+                .Where(x => x.Participants.Any(y => y.UserId == userId))
                 .OrderBy(x => x.LastUpdatedDateTime)
                 .ToListAsync();
                 
+        }
+
+        public async Task<List<Room>> GetAvailableRooms(Guid userId)
+        {
+            return await _context.Rooms
+                .Where(x => !x.Participants.Any(y => y.UserId == userId))
+                .OrderBy(x => x.LastUpdatedDateTime)
+                .ToListAsync();
+
         }
     }
 }

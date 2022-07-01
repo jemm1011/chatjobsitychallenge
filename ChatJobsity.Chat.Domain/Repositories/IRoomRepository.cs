@@ -10,6 +10,7 @@ namespace ChatJobsity.Chat.Domain.Repositories
     public interface IRoomRepository : IRepository<Room>
     {
         Task<List<Room>> GetOwnRooms(Guid userId);
-        Task<Room> GetOrCreateRoom(Guid fromUserId, Guid toUserId);
+        Task<List<Room>> GetAvailableRooms(Guid userId);
+        Task<Room> CreateRoom(Guid userId, string roomName);
     }
 }

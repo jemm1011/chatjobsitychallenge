@@ -24,7 +24,7 @@ namespace ChatJobsity.Chat.Controllers
         {
             var mapped = _mapper.Map<Message>(message);
             mapped.Room = await _unitOfWork.Rooms.GetById(message.RoomId);
-            mapped.SenderUser = await _unitOfWork.Users.GetById(message.SenderUserId);
+            mapped.SenderUserId = message.SenderUserId;
             mapped.SentDateTime = DateTime.Now;
             await _unitOfWork.Messages.Add(mapped);
 

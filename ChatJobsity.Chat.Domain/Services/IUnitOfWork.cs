@@ -10,7 +10,6 @@ namespace ChatJobsity.Chat.Domain.Services
     public interface IUnitOfWork : IDisposable
     {
         IRoomRepository Rooms { get; }
-        IUserRepository Users { get; }
         IMessageRepository Messages { get; }
         IParticipantRepository Participants { get; }
         Task<int> SaveChanges();

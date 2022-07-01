@@ -15,9 +15,7 @@ namespace ChatJobsity.Chat.Profiles
             CreateMap<RoomModel, Room>()
                 .ForMember(dest => dest.Participants, act => act.Ignore());
 
-            CreateMap<Room, RoomModel>()
-                .ForMember(dest => dest.GuestUserDisplayName, act => act.MapFrom(src => src.Participants.First().User.DisplayName))
-                .ForMember(dest => dest.GuestUserId, act => act.MapFrom(src => src.Participants.First().User.Id));
+            CreateMap<Room, RoomModel>();
         }
     }
 }

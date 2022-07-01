@@ -11,7 +11,6 @@ namespace ChatJobsity.Chat.Domain.Models
     {
         [ForeignKey("RoomId")]
         public virtual Room Room { get; set; }
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual Guid UserId { get; set; }
     }
 }

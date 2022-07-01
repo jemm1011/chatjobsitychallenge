@@ -44,16 +44,6 @@ namespace ChatJobsity.UI.Areas.Identity.Pages.Account
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
 
-            if (result.Succeeded)
-            {
-                await _chatApi.AddUser(
-                     new Models.UserViewModel
-                     {
-                         Id = new Guid(user.Id),
-                         DisplayName = user.UserName
-                     });
-            }
-
             return Page();
         }
     }

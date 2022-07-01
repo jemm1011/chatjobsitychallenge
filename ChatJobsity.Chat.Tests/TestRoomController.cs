@@ -53,8 +53,8 @@ namespace ChatJobsity.Chat.Tests
             var test = _mockRepository.Object.GetOwnRooms(It.IsAny<Guid>());
 
             var ownRooms = await _roomController.GetOwnRooms(It.IsAny<Guid>());
-            Assert.IsNotNull(ownRooms.Value);
-            Assert.IsTrue(ownRooms.Value?.Count > 0);
+            Assert.IsNotNull(ownRooms);
+            Assert.IsTrue(ownRooms?.Count > 0);
         }
 
         private List<Room> MockRooms {

@@ -7,7 +7,7 @@ namespace ChatJobsity.UI.Models
 {
     public class RoomParticipantViewModel
     {
-        public UserViewModel User { get; set; }
+        public Guid UserId { get; set; }
         public RoomViewModel Room { get; set; }
     }
 }

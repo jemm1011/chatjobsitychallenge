@@ -1,0 +1,38 @@
+﻿@page
+
+@using System.Linq
+
+@model ChatJobsity.UI.Views.Chat.RoomsModel
+@inject UserManager<IdentityUser> _userManager
+
+@using ChatJobsity.UI.Apis 
+
+@inject IChatApi _chatApi
+
+
+<h1>Chat Rooms</h1>
+
+<div style="margin: 20px;">
+    <a class="btn btn-primary" data-toggle="collapse" href="#addRoom" role="button" aria-expanded="false" aria-controls="addRoom">       
+       <i class="bi bi-plus">Create Room</i>
+     </a>
+    <form asp-page-handler="Create" method="post" class="collapse" id="addRoom" style="border:1px solid gray; padding: 10px; max-width: 300px;">
+        <span>Room Display Name</span>
+        <input type="text" id="RoomName" name="RoomName" asp-for="RoomName"/>
+        <button style="margin-left: 20px"> Create</button>
+    </form>
+</div>
+
+<ul>
+    @foreach(var room in Model.AvailableRooms)
+    {
+        <il>
+            <form asp-page-handler="Enter" method="post" style="border:1px solid gray; padding: 10px; max-width: 300px;">
+                <span>@room.Name</span>
+                <button style="margin-left: 20px">Enter</button>
+                <input type="hidden" name="roomId" value="@room.Id" />
+            </form>
+            
+        </il>
+    }
+</ul>
