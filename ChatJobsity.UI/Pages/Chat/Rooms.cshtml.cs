@@ -31,14 +31,14 @@ namespace ChatJobsity.UI.Views.Chat
             await LoadRooms();
         }
 
-        public async Task OnPostCreate()
+        public async Task<IActionResult> OnPostCreate()
         {
             var currentUserId = _userManager.GetUserId(User);
             var room = await _chatApi.CreateRoom(new Guid(currentUserId), RoomName);
-            await LoadRooms();
+            return Redirect("/Chat/Chats");
         }
 
-        public async Task OnPostEnter(Guid roomId)
+        public async Task<IActionResult> OnPostEnter(Guid roomId)
         {
             var currentUserId = _userManager.GetUserId(User);
             var participant = new RoomParticipantViewModel()
@@ -51,6 +51,7 @@ namespace ChatJobsity.UI.Views.Chat
             };
 
             await _chatApi.AddRoomParticipant(participant);
+            return Redirect("/Chat/Chats");
         }
 
         private async Task LoadRooms()
